@@ -18,6 +18,8 @@
     <modules>
         <module>syx-config-core</module>
         <module>syx-config-server</module>
+        <module>syx-config-client</module>
+        <module>syx-config-demo</module>
     </modules>
 
     <dependencyManagement>
