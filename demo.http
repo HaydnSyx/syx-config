@@ -6,9 +6,12 @@ POST http://localhost:9129/update?app=app1&env=dev&ns=public
 Content-Type: application/json
 
 {
-  "syx.a": "300",
+  "syx.a": "800",
   "syx.d": "123456"
 }
 
 ### version
 GET http://localhost:9129/version?app=app1&env=dev&ns=public
+
+### demo
+GET http://localhost:8080/demo

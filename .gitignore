@@ -25,3 +25,4 @@ replay_pid*
 /syx-config-server/target/
 /syx-config-core/target/
 /.idea/
+*.iml

@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
@@ -17,11 +19,12 @@ import java.util.Map;
 
 //@Slf4j
 @Data
-public class PropertySourcesProcessor implements BeanFactoryPostProcessor, PriorityOrdered, EnvironmentAware {
+public class PropertySourcesProcessor implements BeanFactoryPostProcessor, PriorityOrdered, EnvironmentAware, ApplicationContextAware {
 
     private final static String SYX_PROPERTY_SOURCE = "SyxPropertySource";
     private final static String SYX_PROPERTY_SOURCES = "SyxPropertySources";
     private Environment environment;
+    private ApplicationContext applicationContext;
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -33,11 +36,19 @@ public class PropertySourcesProcessor implements BeanFactoryPostProcessor, Prior
         }
 
         // todo 通过HTTP访问config-server获取配置
-        Map<String, String> config = new HashMap<>();
-        config.put("syx.a", "a200");
-        config.put("syx.b", "b300");
-        config.put("syx.c", "c400");
-        SyxConfigService configService = new SyxConfigServiceImpl(config);
+//        Map<String, String> config = new HashMap<>();
+//        config.put("syx.a", "a200");
+//        config.put("syx.b", "b300");
+//        config.put("syx.c", "c400");
+
+        String app = configurableEnvironment.getProperty("syxconfig.app", "app1");
+        String env = configurableEnvironment.getProperty("syxconfig.env", "dev");
+        String ns = configurableEnvironment.getProperty("syxconfig.ns", "public");
+        String configServer = configurableEnvironment.getProperty("syxconfig.configServer", "http://localhost:9129");
+
+        ConfigMeta configMeta = new ConfigMeta(app, env, ns, configServer);
+
+        SyxConfigService configService = SyxConfigService.getDefault(applicationContext, configMeta);
         SyxPropertySource propertySource = new SyxPropertySource(SYX_PROPERTY_SOURCE, configService);
         CompositePropertySource compositePropertySource = new CompositePropertySource(SYX_PROPERTY_SOURCES);
         compositePropertySource.addPropertySource(propertySource);

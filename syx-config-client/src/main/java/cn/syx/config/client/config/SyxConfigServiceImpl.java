@@ -19,4 +19,9 @@ public class SyxConfigServiceImpl implements SyxConfigService {
     public String getProperty(String name) {
         return config.get(name);
     }
+
+    @Override
+    public void onChange(ChangeEvent event) {
+        this.config = event.config();
+    }
 }
