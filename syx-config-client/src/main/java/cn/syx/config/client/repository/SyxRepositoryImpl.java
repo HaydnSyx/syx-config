@@ -74,10 +74,8 @@ public class SyxRepositoryImpl implements SyxRepository {
             versionMap.put(key, version);
             Map<String, String> newConfigs = findAll();
             configMap.put(key, newConfigs);
-            if (!CollectionUtils.isEmpty(listeners)) {
-                listeners.forEach(l -> l.onChange(new SyxRepositoryChangeListener.ChangeEvent(configMeta, newConfigs)));
-            }
-            applicationContext.publishEvent(new EnvironmentChangeEvent(newConfigs.keySet()));
+            listeners.forEach(l -> l.onChange(new SyxRepositoryChangeListener.ChangeEvent(configMeta, newConfigs)));
+//            applicationContext.publishEvent(new EnvironmentChangeEvent(newConfigs.keySet()));
         }
 
     }

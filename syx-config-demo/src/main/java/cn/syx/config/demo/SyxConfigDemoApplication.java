@@ -20,10 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableConfigurationProperties(SyxDemoConfig.class)
 public class SyxConfigDemoApplication {
 
-    @Value("${syx.a}")
+    @Value("${syx.a}-${syx.b}")
     private String a;
     @Value("${syx.b}")
     private String b;
+    @Value("${syx.e:e500}")
+    private String e;
+    @Value("${some.other.key:100}")
+    private String other;
 
     @Autowired
     private SyxDemoConfig syxDemoConfig;
@@ -36,6 +40,8 @@ public class SyxConfigDemoApplication {
     public String demo() {
         return "syx.a = " + a + "\n"
                 + "syx.b = " + b + "\n"
+                + "syx.e = " + e + "\n"
+                + "some.other.key = " + other + "\n"
                 + "demo.a = " + syxDemoConfig.getA() + "\n"
                 + "demo.b = " + syxDemoConfig.getB() + "\n";
     }

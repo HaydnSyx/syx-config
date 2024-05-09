@@ -12,7 +12,7 @@ public interface SyxConfigService extends SyxRepositoryChangeListener {
     static SyxConfigService getDefault(ApplicationContext applicationContext, ConfigMeta meta) {
         SyxRepository repository = new SyxRepositoryImpl(applicationContext, meta);
         Map<String, String> config = repository.getConfig();
-        SyxConfigService configService = new SyxConfigServiceImpl(config);
+        SyxConfigService configService = new SyxConfigServiceImpl(config, applicationContext);
         repository.addListener(configService);
         return configService;
     }
