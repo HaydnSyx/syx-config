@@ -6,10 +6,7 @@ POST http://localhost:9129/update?app=app1&env=dev&ns=public
 Content-Type: application/json
 
 {
-  "syx.a": "777",
-  "syx.d": "123456",
-  "syx.e": "zzzz",
-  "some.other.key": "abc"
+  "syx.rpc.dynamic.timeout": "{\"cn.syx.rpc.demo.api.UserService\":{\"timeout\":444,\"methodTimeoutMap\":{\"findById\":555}}}"
 }
 
 ### version
@@ -17,3 +14,12 @@ GET http://localhost:9129/version?app=app1&env=dev&ns=public
 
 ### demo
 GET http://localhost:8080/demo
+
+### get status 9127
+GET http://localhost:9127/status
+
+### get status 9128
+GET http://localhost:9128/status
+
+### get status 9129
+GET http://localhost:9129/status

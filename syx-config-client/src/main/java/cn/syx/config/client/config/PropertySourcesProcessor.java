@@ -1,6 +1,7 @@
 package cn.syx.config.client.config;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -17,7 +18,7 @@ import org.springframework.core.env.MutablePropertySources;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Slf4j
+@Slf4j
 @Data
 public class PropertySourcesProcessor implements BeanFactoryPostProcessor, PriorityOrdered, EnvironmentAware, ApplicationContextAware {
 
@@ -54,8 +55,8 @@ public class PropertySourcesProcessor implements BeanFactoryPostProcessor, Prior
         compositePropertySource.addPropertySource(propertySource);
 
         configurableEnvironment.getPropertySources().addFirst(compositePropertySource);
-//        log.info("PropertySourcesProcessor postProcessBeanFactory handle success");
-        System.out.println("PropertySourcesProcessor postProcessBeanFactory handle success");
+        log.info("PropertySourcesProcessor postProcessBeanFactory handle success");
+//        System.out.println("PropertySourcesProcessor postProcessBeanFactory handle success");
     }
 
     @Override

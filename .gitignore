@@ -26,3 +26,5 @@ replay_pid*
 /syx-config-core/target/
 /.idea/
 *.iml
+/syx-config-client/target/
+/syx-config-demo/target/

@@ -15,6 +15,8 @@ public class SyxConfigController {
 
     @Autowired
     private ConfigsMapper mapper;
+    @Autowired
+    DistributedLocks locks;
 
     Map<String, Long> VERSIONS = new HashMap<>();
 
@@ -51,5 +53,10 @@ public class SyxConfigController {
                         @RequestParam("env") String env,
                         @RequestParam("ns") String ns) {
         return VERSIONS.getOrDefault(app + "-" + env + "-" + ns, -1L);
+    }
+
+    @GetMapping("/status")
+    public boolean status() {
+        return locks.getLocked().get();
     }
 }
