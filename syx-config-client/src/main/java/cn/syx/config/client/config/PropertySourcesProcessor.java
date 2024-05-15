@@ -36,12 +36,6 @@ public class PropertySourcesProcessor implements BeanFactoryPostProcessor, Prior
             return;
         }
 
-        // todo 通过HTTP访问config-server获取配置
-//        Map<String, String> config = new HashMap<>();
-//        config.put("syx.a", "a200");
-//        config.put("syx.b", "b300");
-//        config.put("syx.c", "c400");
-
         String app = configurableEnvironment.getProperty("syxconfig.app", "app1");
         String env = configurableEnvironment.getProperty("syxconfig.env", "dev");
         String ns = configurableEnvironment.getProperty("syxconfig.ns", "public");
@@ -56,7 +50,6 @@ public class PropertySourcesProcessor implements BeanFactoryPostProcessor, Prior
 
         configurableEnvironment.getPropertySources().addFirst(compositePropertySource);
         log.info("PropertySourcesProcessor postProcessBeanFactory handle success");
-//        System.out.println("PropertySourcesProcessor postProcessBeanFactory handle success");
     }
 
     @Override
